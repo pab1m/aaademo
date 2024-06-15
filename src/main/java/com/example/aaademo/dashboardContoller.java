@@ -201,14 +201,14 @@ public class dashboardContoller implements Initializable {
     private ResultSet result;
     
     private Image image;
-    
+
     public void homeChart(){
         dashboard_chart.getData().clear();
         
         String sql = "SELECT date, SUM(total) FROM customer_info"
                 + " GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 9";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             XYChart.Series chart = new XYChart.Series();
@@ -230,7 +230,7 @@ public class dashboardContoller implements Initializable {
         
         String sql = "SELECT COUNT(id) FROM appliance WHERE status = 'Enabled'";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         int countAM = 0;
         try{
             prepare = connect.prepareStatement(sql);
@@ -249,7 +249,7 @@ public class dashboardContoller implements Initializable {
     public void homeTI(){
         String sql = "SELECT SUM(total) FROM customer_info";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         double totalDisplay = 0;
         try{
             prepare = connect.prepareStatement(sql);
@@ -271,7 +271,7 @@ public class dashboardContoller implements Initializable {
         
         String sql = "SELECT COUNT(id) FROM customer_info";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         int countTC = 0;
         
         try{
@@ -289,16 +289,16 @@ public class dashboardContoller implements Initializable {
     }
     
     public void addMedicinesAdd(){
-        
+
         String sql = "INSERT INTO appliance (appliance_id, brand, productName, status, power, image, date) "
                 + "VALUES(?,?,?,?,?,?,?)";
-        
-        connect = database.connectDb();
-        
+
+        connect = database.connectionDb();
+
         try{
-            
+
             Alert alert;
-            
+
             if(addMedicines_medicineID.getText().isEmpty()
                     || addMedicines_brand.getText().isEmpty()
                     || addMedicines_productName.getText().isEmpty()
@@ -314,10 +314,10 @@ public class dashboardContoller implements Initializable {
                 // CHECK IF THE MEDICINE ID YOU WANT TO INSERT EXIST
                 String checkData = "SELECT appliance_id FROM appliance WHERE appliance_id = '"
                         +addMedicines_medicineID.getText()+"'";
-                
+
                 statement = connect.createStatement();
                 result = statement.executeQuery(checkData);
-                
+
                 if(result.next()){
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
@@ -341,18 +341,18 @@ public class dashboardContoller implements Initializable {
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
                     prepare.setString(7, String.valueOf(sqlDate));
-                    
+
                     prepare.executeUpdate();
-                    
+
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
-                    
+
                     addMedicineShowListData();
                     addMedicineReset();
-                    
+
                 }
             }
         }catch(Exception e){e.printStackTrace();}
@@ -370,7 +370,7 @@ public class dashboardContoller implements Initializable {
                 +addMedicines_price.getText()+"', image = '"+uri+"' WHERE appliance_id = '"
                 +addMedicines_medicineID.getText()+"'";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             Alert alert;
@@ -414,7 +414,7 @@ public class dashboardContoller implements Initializable {
         
         String sql = "DELETE FROM appliance WHERE appliance_id = '"+addMedicines_medicineID.getText()+"'";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             Alert alert;
@@ -503,7 +503,7 @@ public class dashboardContoller implements Initializable {
         
         ObservableList<medicineData> listData = FXCollections.observableArrayList();
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             prepare = connect.prepareStatement(sql);
@@ -603,7 +603,7 @@ public class dashboardContoller implements Initializable {
         String sql = "INSERT INTO customer (customer_id,appliance_id,brand,productName,quantity,power,date)"
                 + " VALUES(?,?,?,?,?,?,?)";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             Alert alert;
@@ -657,7 +657,7 @@ public class dashboardContoller implements Initializable {
         
         String sql = "SELECT SUM(power) FROM customer WHERE customer_id = '"+customerId+"'";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             prepare = connect.prepareStatement(sql);
@@ -677,7 +677,7 @@ public class dashboardContoller implements Initializable {
         String sql = "INSERT INTO customer_info (customer_id, total, date) "
                 + "VALUES(?,?,?)";
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             Alert alert;
@@ -737,7 +737,7 @@ public class dashboardContoller implements Initializable {
         
         ObservableList<customerData> listData = FXCollections.observableArrayList();
         
-        connect = database.connectDb();
+        connect = database.connectionDb();
         
         try{
             customerData customerD;
@@ -779,7 +779,7 @@ public class dashboardContoller implements Initializable {
 
         String sql = "SELECT customer_id FROM customer";
 
-        connect = database.connectDb();
+        connect = database.connectionDb();
 
         try{
             prepare = connect.prepareStatement(sql);
@@ -812,7 +812,7 @@ public class dashboardContoller implements Initializable {
 
         String sql = "SELECT * FROM appliance WHERE status = 'Enabled'";
 
-        connect = database.connectDb();
+        connect = database.connectionDb();
 
         try{
             ObservableList listData = FXCollections.observableArrayList();
@@ -836,7 +836,7 @@ public class dashboardContoller implements Initializable {
         String sql = "SELECT * FROM appliance WHERE appliance_id = '"
                 +purchase_medicineID.getSelectionModel().getSelectedItem()+"'";
 
-        connect = database.connectDb();
+        connect = database.connectionDb();
 
         try{
             ObservableList listData = FXCollections.observableArrayList();
@@ -861,7 +861,7 @@ public class dashboardContoller implements Initializable {
         String sql = "SELECT * FROM appliance WHERE brand = '"
                 +purchase_brand.getSelectionModel().getSelectedItem()+"'";
 
-        connect = database.connectDb();
+        connect = database.connectionDb();
 
         try{
             ObservableList listData = FXCollections.observableArrayList();
@@ -886,18 +886,18 @@ public class dashboardContoller implements Initializable {
     public void defaultNav(){
         dashboard_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #41b170, #8a418c);");
     }
-    
+
     public void switchForm(ActionEvent event){
         
         if(event.getSource() == dashboard_btn){
             dashboard_form.setVisible(true);
             addMedicines_form.setVisible(false);
             purchase_form.setVisible(false);
-            
+
             dashboard_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #41b170, #8a418c);");
             addMed_btn.setStyle("-fx-background-color:transparent");
             pruchase_btn.setStyle("-fx-background-color:transparent");
-            
+
             homeChart();
             homeAM();
             homeTI();
@@ -907,11 +907,11 @@ public class dashboardContoller implements Initializable {
             dashboard_form.setVisible(false);
             addMedicines_form.setVisible(true);
             purchase_form.setVisible(false);
-            
+
             addMed_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #41b170, #8a418c);");
             dashboard_btn.setStyle("-fx-background-color:transparent");
             pruchase_btn.setStyle("-fx-background-color:transparent");
-            
+
             addMedicineShowListData();
             addMedicineListStatus();
             addMedicineSearch();
@@ -920,23 +920,22 @@ public class dashboardContoller implements Initializable {
             dashboard_form.setVisible(false);
             addMedicines_form.setVisible(false);
             purchase_form.setVisible(true);
-            
+
             pruchase_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #41b170, #8a418c);");
             dashboard_btn.setStyle("-fx-background-color:transparent");
             addMed_btn.setStyle("-fx-background-color:transparent");
-            
-//            purchaseType();
+
             purchaseMedicineId();
             purchaseBrand();
             purchaseProductName();
             purchaseShowListData();
             purchaseShowValue();
             purchaseDisplayTotal();
-            
+
         }
-        
+
     }
-    
+
     public void displayUsername(){
         String user = getData.username;
                         // BIG LETTER THE FIRST LETTER THEN THE REST ARE SMALL LETTER
@@ -948,43 +947,21 @@ public class dashboardContoller implements Initializable {
     private double y = 0;
 
     public void logout() {
-
         try {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Message");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to logout?");
             Optional<ButtonType> option = alert.showAndWait();
-
             if (option.get().equals(ButtonType.OK)) {
-                // HIDE THE DASHBOARD FORM
                 logout.getScene().getWindow().hide();
-                // LINK YOUR LOGIN FORM
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("FXMLDocument.fxml")));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().
+                        getResource("FXMLDocument.fxml")));
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
-
-                root.setOnMousePressed((MouseEvent event) -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-
-                root.setOnMouseDragged((MouseEvent event) -> {
-                    stage.setX(event.getScreenX() - x);
-                    stage.setY(event.getScreenY() - y);
-
-                    stage.setOpacity(.8);
-                });
-
-                root.setOnMouseReleased((MouseEvent event) -> {
-                    stage.setOpacity(1);
-                });
-
                 stage.initStyle(StageStyle.TRANSPARENT);
-
                 stage.setScene(scene);
                 stage.show();
-
             }
         } catch (Exception e) {
             e.printStackTrace();

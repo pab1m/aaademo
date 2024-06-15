@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PharmacyManagementSystem extends Application {
+public class ApplianceManagementSystem extends Application {
     
     private double x = 0;
     private double y = 0;
@@ -26,7 +26,6 @@ public class PharmacyManagementSystem extends Application {
         root.setOnMouseDragged((MouseEvent event) ->{
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
-            
             stage.setOpacity(.8);
         });
         
@@ -35,7 +34,6 @@ public class PharmacyManagementSystem extends Application {
         });
         
         stage.initStyle(StageStyle.TRANSPARENT);
-        
         stage.setScene(scene);
         stage.show();
     }

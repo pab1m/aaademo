@@ -66,7 +66,7 @@
                                  <graphic>
                                  </graphic>
                               </Button>
-                              <Button fx:id="addMed_btn" layoutX="8.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="38.0" prefWidth="189.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Add Medicines">
+                              <Button fx:id="addMed_btn" layoutX="8.0" layoutY="252.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="38.0" prefWidth="189.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Add Appliances">
                                  <graphic>
                                  </graphic>
                               </Button>
